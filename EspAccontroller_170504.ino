@@ -148,12 +148,13 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
     if (realhour >= 19 || realhour <= 11) {
         Serial.println("NOT ok to run AC");
-        acon = false;
-        digitalWrite(LED, HIGH);          // turn the LED off.
-        acon = false;
-        client.publish("accontrollerPower", "Ac off");
-        Serial.println("Ac off");
-        irsend.sendRaw(powerOff,200,38);
+        if (acon) {
+          digitalWrite(LED, HIGH);          // turn the LED off.
+          acon = false;
+          client.publish("accontrollerPower", "Ac off");
+          Serial.println("Ac off");
+          irsend.sendRaw(powerOff,200,38);
+        }
     }
   }
   else if (topic="accontrol") {
