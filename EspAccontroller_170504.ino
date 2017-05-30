@@ -86,6 +86,7 @@ void setup_wifi() {
   Serial.println(ssid);
 
   WiFi.begin(ssid, password);
+  WiFi.hostname("Ac_controller");
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
